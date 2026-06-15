@@ -29,9 +29,9 @@ def get_top_updates(limit=5):
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT title, source, category, url, summary, impact
+        SELECT title, source, category, url, summary, impact_score
         FROM updates
-        ORDER BY impact DESC, id DESC
+        ORDER BY impact_score DESC, id DESC
         LIMIT ?
     """, (limit,))
 
