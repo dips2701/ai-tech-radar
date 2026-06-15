@@ -1,7 +1,10 @@
-import ollama
+import os
+from groq import Groq
 import sqlite3
 from database import DB_PATH
 from datetime import date
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def get_skill_of_day():
     """Analyze today's updates and suggest the most important skill to learn."""
@@ -46,14 +49,15 @@ EXAMPLES:
 [1-2 specific tools or techniques to learn]
 """
 
-    response = ollama.chat(
-        model="qwen2.5:3b",
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
         messages=[
             {"role": "user", "content": prompt}
-        ]
+        ],
+        temperature=0.3,
     )
     
-    return response["message"]["content"]
+    return response.choices[0].message.content
 
 
 def parse_skill_output(raw_output):

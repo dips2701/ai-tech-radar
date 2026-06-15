@@ -10,7 +10,9 @@ from dotenv import load_dotenv
 import sqlite3
 from database import DB_PATH
 from telegram.ext import MessageHandler, filters
-import ollama
+from groq import Groq
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 load_dotenv()
 
@@ -185,14 +187,15 @@ If the user asks what to learn, suggest 3-5 skills.
 Keep it concise.
 """
 
-        response = ollama.chat(
-            model="qwen2.5:3b",
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "user", "content": prompt}
-            ]
+            ],
+            temperature=0.3,
         )
 
-        answer = response["message"]["content"]
+        answer = response.choices[0].message.content
         await update.message.reply_text(answer[:4000])
 
     except Exception as e:

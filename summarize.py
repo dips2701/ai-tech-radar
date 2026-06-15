@@ -1,4 +1,7 @@
-import ollama
+import os
+from groq import Groq
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def summarize_update(title, content):
     prompt = f"""
@@ -25,14 +28,15 @@ IMPACT:
 Rate from 1-10.
 """
 
-    response = ollama.chat(
-        model="qwen2.5:3b",
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
         messages=[
             {"role": "user", "content": prompt}
-        ]
+        ],
+        temperature=0.3,
     )
 
-    return response["message"]["content"]
+    return response.choices[0].message.content
 
 
 def parse_summary_output(output):
