@@ -3,9 +3,7 @@ feedparser
 schedule
 streamlit
 pandas
-requests
-beautifulsoup
-ollama
 python-dotenv
-requests
+beautifulsoup4
+arxiv
 python-telegram-bot
