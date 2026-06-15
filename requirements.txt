@@ -1,0 +1,11 @@
+requests
+feedparser
+schedule
+streamlit
+pandas
+requests
+beautifulsoup
+ollama
+python-dotenv
+requests
+python-telegram-bot
