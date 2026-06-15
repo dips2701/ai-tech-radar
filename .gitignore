@@ -2,3 +2,5 @@
 data/
 __pycache__/
 *.pyc
+task_log.txt
+run_daily.bat
