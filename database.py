@@ -27,3 +27,25 @@ def create_table():
 
     conn.commit()
     conn.close()
+
+def update_summary_fields(url, ai_summary, why_it_matters, action_item, impact_score):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE updates
+        SET ai_summary = ?,
+            why_it_matters = ?,
+            action_item = ?,
+            impact_score = ?
+        WHERE url = ?
+    """, (
+        ai_summary,
+        why_it_matters,
+        action_item,
+        impact_score,
+        url
+    ))
+
+    conn.commit()
+    conn.close()
